@@ -2,6 +2,8 @@ package com.example.demo;
 
  import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -29,11 +31,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
+@RequestMapping("/Excel")
+@Api(value="Download Datatable", description="download the copy of any data table in Excel format from PostgresDB")
 public class cONTROLLER {
 
-    @RequestMapping("/TableName")
+	@RequestMapping(value = "/TableName",method = RequestMethod.GET) 
     public ArrayList<String> index() {
 
     	 Connection con = null;
@@ -41,7 +46,7 @@ public class cONTROLLER {
          ResultSet rs = null;
          ArrayList<String> al=new ArrayList<String>();
 
-         String url = "jdbc:postgresql://db-7a9c1875-0005-4d58-b5a0-75930add96b1.c7uxaqxgfov3.us-west-2.rds.amazonaws.com:5432/postgres";
+        String url = "jdbc:postgresql://db-7a9c1875-0005-4d58-b5a0-75930add96b1.c7uxaqxgfov3.us-west-2.rds.amazonaws.com:5432/postgres";
          String user = "ui317m0ucytv6i8l";
          String password = "yrb80dgx1usvuaiiitxbphi31";
         
@@ -86,7 +91,7 @@ public class cONTROLLER {
          }
         return al;
     }
-    @RequestMapping("/TableData/{Tablename}")
+	@RequestMapping(value = "/TableData/{Tablename}",method = RequestMethod.GET) 
     public String  index1(@PathVariable String Tablename,HttpServletResponse response) throws FileNotFoundException,IOException,FileNotFoundException, IOException  {
     	 String filename = "NewExcelFile.xls" ;
          HSSFWorkbook workbook = new HSSFWorkbook();
@@ -98,7 +103,7 @@ public class cONTROLLER {
         ResultSet rs = null;
         ResultSet rs1 = null;
 
-     /*   String url = "jdbc:postgresql://localhost:5432/postgres";
+      /* String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
         String password = "1234";*/
         
