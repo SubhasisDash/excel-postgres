@@ -1,0 +1,6 @@
+applications:
+  - name: Excel-Postgres1
+    buildpack: java-buildpack
+    path: target/Excel-postgres-0.0.1-SNAPSHOT.jar
+    services:
+            - inventory_postgres
